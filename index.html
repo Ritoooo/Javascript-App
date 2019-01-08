@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Product App</title>
+	<link rel="stylesheet" type="text/css" href="https://bootswatch.com/4/litera/bootstrap.min.css">
+</head>
+<body>
+
+	<nav class="navbar navbar-light bg-light">
+		<a href="/" class="navbar-brand">Product App </a>
+	</nav>
+
+	<div class="container">
+		<div id="App" class="row pt-5">
+			<div class="col-md-4">
+				<div class="card">
+					<div class="card-header">
+						<h4>Add a Product</h4>
+					</div>
+					<form id="product-form" action="" class="card-body">
+						<div class="form-group">
+							<input type="text" id="name" autofocus="true" placeholder="Product name" class="form-control">
+						</div>
+						<div class="form-group">
+							<input type="number" id="price" step="0.01" placeholder="Product price" class="form-control">
+						</div>
+						<div class="form-group">
+							<input type="number" id="year" min="1900" value="2018" placeholder="Year Product" class="form-control">
+						</div>
+						<input type="submit" value="Save" class="btn btn-primary btn-block">
+					</form>
+				</div>
+			</div>
+			<div class="col-md-8" id="product-list">
+				
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="App.js"></script>
+</body>
+</html>
