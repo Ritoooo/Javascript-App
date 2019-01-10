@@ -7,8 +7,12 @@ class Product{
 }
 
 class UI{
-	addProduct(product){
+	appendList(product){
 		const productList = document.getElementById('product-list');
+		this.addButtonRemoveAll(productList);
+		this.addProduct(product, productList);
+	}
+	addProduct(product, productList){
 		const element = document.createElement('div');
 		element.innerHTML = `
 			<div class="card text-center mb-4">
@@ -29,8 +33,14 @@ class UI{
 		if (element.name === 'delete') {
 			element.parentElement.parentElement.parentElement.remove();
 			this.showMessage('Product Deleted Successfully', 'danger');
+		}else if (element.name === 'deleteAll') {
+			const list = document.getElementById('product-list');
+			while (list.hasChildNodes()) {
+			list.removeChild(list.childNodes[0])
+		}
 		}
 	}
+
 	showMessage(message, cssClass){
 		const div = document.createElement('div');
 		div.className = `alert alert-${cssClass} mt-4`;
@@ -43,6 +53,17 @@ class UI{
 			document.querySelector('.alert').remove();
 		},1000);
 	}
+	addButtonRemoveAll(productList){
+		const button = document.getElementById('btnRemoveAll');
+		if (button == null) {
+			const newButton = document.createElement('a');
+			newButton.innerHTML = `
+				<a href="" class="btn btn-dark" id="btnRemoveAll" name="deleteAll">Delete all</a>
+			`;
+			productList.appendChild(newButton);
+		}
+		
+	}
 }
 
 
@@ -52,15 +73,12 @@ document.getElementById('product-form')
 		const name = document.getElementById('name').value;
 		const price = document.getElementById('price').value;
 		const year = document.getElementById('year').value;
-
 		const product = new Product(name,price,year);
 		const ui = new UI();
-
 		if (name===''||price===''||year==='') {
 			return ui.showMessage('Please complete fields', 'warning');
 		}
-
-		ui.addProduct(product);
+		ui.appendList(product);
 		ui.resetForm();
 		ui.showMessage('Product added successfully', 'success')
 		e.preventDefault();
@@ -70,5 +88,6 @@ document.getElementById('product-list')
 	.addEventListener('click', function(e){
 		const ui = new UI();
 		ui.deleteProduct(e.target);
+		//ui.deleteAll(e.target);
 		e.preventDefault();
 	});
